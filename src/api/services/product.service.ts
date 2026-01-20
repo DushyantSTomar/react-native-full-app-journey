@@ -29,6 +29,7 @@ export const ProductListService = {
     const limit = 10;
     const response = await apiClient.get<Product[]>(
       `https://jsonplaceholder.typicode.com/posts?_page=${page}&_limit=${limit}`
+      // `https://invalid-api-url.example.com`
     );
 
     return {
