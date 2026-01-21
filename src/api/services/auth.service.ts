@@ -16,11 +16,33 @@ export interface AuthResponse {
         name: string;
     };
 }
+type LoginResponse = {
+    token: string;
+    user: {
+        id: number;
+        name: string;
+        email: string;
+    };
+};
 
 export const AuthService = {
-    login: async (payload: LoginPayload): Promise<AuthResponse> => {
-        const response = await apiClient.post<AuthResponse>(ENDPOINTS.AUTH.LOGIN, payload);
-        return response.data;
+    login: async (
+        email: string,
+        password: string
+    ): Promise<LoginResponse> => {
+        await new Promise(resolve => setTimeout(resolve, 1000)); 
+        if (email === 'test@test.com' && password === '123456') {
+            return {
+                token: 'fake-jwt-token-123',
+                user: {
+                    id: 1,
+                    name: 'Test User',
+                    email,
+                },
+            };
+        }
+
+        throw new Error('Invalid email or password');
     },
 
     refreshToken: async (token: string): Promise<AuthResponse> => {
@@ -32,3 +54,4 @@ export const AuthService = {
         await apiClient.post(ENDPOINTS.AUTH.LOGOUT);
     },
 };
+

@@ -5,6 +5,8 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import apiClient from './src/api/apiClient';
 import { setupInterceptors } from './src/api/interceptors';
 import ProductListScreen from './src/features/products/ProductListScreen';
+import { AuthProvider } from './src/auth/AuthContext';
+import RootNavigator from './src/navigation/RootNavigator';
 
 
 const App = () => {
@@ -13,10 +15,10 @@ const App = () => {
   }, []);
 
   return (
-    <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      {/* <Text>Custom Hooks Implemented 🚀</Text> */}
-      <ProductListScreen />
-    </SafeAreaView>
+    <AuthProvider>
+      <RootNavigator />
+    </AuthProvider>
+
   );
 };
 
