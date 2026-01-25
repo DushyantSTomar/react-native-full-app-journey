@@ -35,7 +35,7 @@ export const ProductListService = {
     return {
       data: response.data,
       page,
-      hasMore: response.data.length === limit,
+      hasMore: response.data.length === limit,  
     };
   },
 };

@@ -3,6 +3,7 @@ import { View, TextInput, Text, FlatList } from 'react-native';
 import { useDebounce } from '../../hooks/useDebounce';
 import { useApi } from '../../hooks/useApi';
 import { ProductService } from '../../api/services/product.service';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const SearchScreen = () => {
   const [query, setQuery] = useState('');
@@ -15,7 +16,7 @@ const SearchScreen = () => {
   }, [debouncedQuery]);
 
   return (
-    <View style={{ padding: 16 }}>
+    <SafeAreaView style={{ flex:1 }}>
       <TextInput
         placeholder="Search products..."
         value={query}
@@ -30,7 +31,7 @@ const SearchScreen = () => {
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => <Text>{item.title}</Text>}
       />
-    </View>
+    </SafeAreaView>
   );
 };
 

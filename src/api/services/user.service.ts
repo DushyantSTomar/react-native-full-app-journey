@@ -17,6 +17,10 @@ export interface UpdateProfilePayload {
 
 export const UserService = {
     getProfile: async (): Promise<UserProfile> => {
+        // SIMULATION: Simulate 401 for testing
+        const simulateError = { response: { status: 401 } };
+        throw simulateError;
+
         const response = await apiClient.get<UserProfile>(ENDPOINTS.USER.PROFILE);
         return response.data;
     },
