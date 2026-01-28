@@ -1,11 +1,12 @@
 import { View, Text, Button } from 'react-native';
 import { useToggle } from '../../hooks/useToggle';
+import { styles } from './styles';
 
 const ToggleTestScreen = () => {
   const { value, on, off, toggle } = useToggle();
 
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+    <View style={styles.container}>
       <Text>{value ? 'ON' : 'OFF'}</Text>
 
       <Button title="ON" onPress={on} />

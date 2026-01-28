@@ -7,7 +7,7 @@ import { AuthService } from '../../api/services/auth.service';
 import EyeIcon from '../../components/icons/EyeIcon';
 import EyeOffIcon from '../../components/icons/EyeOffIcon';
 import Toast from '../../components/ui/Toast';
-
+import { styles } from './styles';
 
 const LoginScreen = () => {
   const navigation = useNavigation<any>();
@@ -42,7 +42,7 @@ const LoginScreen = () => {
   };
 
   return (
-    <View style={{ padding: 16, marginTop: 50, flex: 1 }}>
+    <View style={styles.container}>
       <Toast
         visible={toast.visible}
         message={toast.message}
@@ -50,7 +50,7 @@ const LoginScreen = () => {
         onHide={() => setToast(prev => ({ ...prev, visible: false }))}
       />
 
-      <Text style={{ fontSize: 24, fontWeight: 'bold', marginBottom: 24, textAlign: 'center' }}>Login</Text>
+      <Text style={styles.title}>Login</Text>
       <TextInput
         placeholder="Email"
         value={email}
@@ -58,11 +58,11 @@ const LoginScreen = () => {
           setEmail(text);
           reset();
         }}
-        style={{ borderWidth: 1, borderColor: '#ccc', borderRadius: 8, padding: 12, marginBottom: 16 }}
+        style={styles.input}
       />
 
-      <View style={{ marginBottom: 16 }}>
-        <View style={{ flexDirection: 'row', alignItems: 'center', borderWidth: 1, borderColor: '#ccc', borderRadius: 8 }}>
+      <View style={styles.passwordContainer}>
+        <View style={styles.passwordInputWrapper}>
           <TextInput
             placeholder="Password"
             secureTextEntry={!isPasswordVisible}
@@ -71,11 +71,11 @@ const LoginScreen = () => {
               setPassword(text);
               reset();
             }}
-            style={{ flex: 1, padding: 12 }}
+            style={styles.passwordInput}
           />
           <TouchableOpacity
             onPress={() => setIsPasswordVisible(!isPasswordVisible)}
-            style={{ padding: 10 }}
+            style={styles.eyeIcon}
           >
             {isPasswordVisible ? (
               <EyeIcon size={24} color="#666" />
@@ -92,9 +92,9 @@ const LoginScreen = () => {
         disabled={loading}
       />
 
-      <View style={{ marginTop: 16, alignItems: 'center' }}>
+      <View style={styles.footer}>
         <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
-          <Text style={{ color: 'blue', fontWeight: 'bold', marginTop: 8 }}>Don't have an account?</Text>
+          <Text style={styles.linkText}>Don't have an account?</Text>
         </TouchableOpacity>
       </View>
     </View>

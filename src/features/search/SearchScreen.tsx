@@ -4,6 +4,7 @@ import { useDebounce } from '../../hooks/useDebounce';
 import { useApi } from '../../hooks/useApi';
 import { ProductService } from '../../api/services/product.service';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { styles } from './styles';
 
 const SearchScreen = () => {
   const [query, setQuery] = useState('');
@@ -16,12 +17,12 @@ const SearchScreen = () => {
   }, [debouncedQuery]);
 
   return (
-    <SafeAreaView style={{ flex:1 }}>
+    <SafeAreaView style={styles.container}>
       <TextInput
         placeholder="Search products..."
         value={query}
         onChangeText={setQuery}
-        style={{ borderWidth: 1, padding: 10, marginBottom: 10 }}
+        style={styles.input}
       />
 
       {loading && <Text>Searching...</Text>}

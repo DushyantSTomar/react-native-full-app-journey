@@ -7,6 +7,7 @@ import Toast from '../../components/ui/Toast';
 import CustomModal from '../../components/ui/CustomModal';
 import { useApi } from '../../hooks/useApi';
 import { AuthService } from '../../api/services/auth.service';
+import { styles } from './styles';
 
 const SignUpScreen = () => {
     const navigation = useNavigation<any>();
@@ -19,7 +20,7 @@ const SignUpScreen = () => {
 
     const [toast, setToast] = useState({ visible: false, message: '', type: 'info' as 'success' | 'error' | 'info' });
     const [modalVisible, setModalVisible] = useState(false);
-    const { loading, error, request, reset } =useApi(AuthService.singup);
+    const { loading, error, request, reset } = useApi(AuthService.singup);
 
     const showToast = (message: string, type: 'success' | 'error' = 'error') => {
         setToast({ visible: true, message, type });
@@ -63,7 +64,7 @@ const SignUpScreen = () => {
     };
 
     return (
-        <View style={{ flex: 1 }}>
+        <View style={styles.safeArea}>
             <Toast
                 visible={toast.visible}
                 message={toast.message}
@@ -79,33 +80,33 @@ const SignUpScreen = () => {
                 onAction={handleSuccessModalClose}
             />
 
-            <ScrollView contentContainerStyle={{ padding: 16, marginTop: 50 }}>
+            <ScrollView contentContainerStyle={styles.scrollContent}>
 
-                <Text style={{ fontSize: 24, fontWeight: 'bold', marginBottom: 24, textAlign: 'center' }}>Sign Up</Text>
+                <Text style={styles.title}>Sign Up</Text>
 
-                <Text style={{ marginBottom: 8, fontWeight: '600' }}>Email</Text>
+                <Text style={styles.label}>Email</Text>
                 <TextInput
                     placeholder="Enter your email"
                     value={email}
                     onChangeText={setEmail}
-                    style={{ borderWidth: 1, borderColor: '#ccc', borderRadius: 8, padding: 12, marginBottom: 16 }}
+                    style={styles.input}
                     autoCapitalize="none"
                     keyboardType="email-address"
                 />
 
-                <Text style={{ marginBottom: 8, fontWeight: '600' }}>Password</Text>
-                <View style={{ marginBottom: 16 }}>
-                    <View style={{ flexDirection: 'row', alignItems: 'center', borderWidth: 1, borderColor: '#ccc', borderRadius: 8 }}>
+                <Text style={styles.label}>Password</Text>
+                <View style={styles.passwordContainer}>
+                    <View style={styles.passwordInputWrapper}>
                         <TextInput
                             placeholder="Enter password"
                             secureTextEntry={!isPasswordVisible}
                             value={password}
                             onChangeText={setPassword}
-                            style={{ flex: 1, padding: 12 }}
+                            style={styles.passwordInput}
                         />
                         <TouchableOpacity
                             onPress={() => setIsPasswordVisible(!isPasswordVisible)}
-                            style={{ padding: 10 }}
+                            style={styles.eyeIcon}
                         >
                             {isPasswordVisible ? (
                                 <EyeIcon size={24} color="#666" />
@@ -116,19 +117,19 @@ const SignUpScreen = () => {
                     </View>
                 </View>
 
-                <Text style={{ marginBottom: 8, fontWeight: '600' }}>Confirm Password</Text>
-                <View style={{ marginBottom: 24 }}>
-                    <View style={{ flexDirection: 'row', alignItems: 'center', borderWidth: 1, borderColor: '#ccc', borderRadius: 8 }}>
+                <Text style={styles.label}>Confirm Password</Text>
+                <View style={styles.marginBottom24}>
+                    <View style={styles.passwordInputWrapper}>
                         <TextInput
                             placeholder="Confirm password"
                             secureTextEntry={!isConfirmPasswordVisible}
                             value={confirmPassword}
                             onChangeText={setConfirmPassword}
-                            style={{ flex: 1, padding: 12 }}
+                            style={styles.passwordInput}
                         />
                         <TouchableOpacity
                             onPress={() => setIsConfirmPasswordVisible(!isConfirmPasswordVisible)}
-                            style={{ padding: 10 }}
+                            style={styles.eyeIcon}
                         >
                             {isConfirmPasswordVisible ? (
                                 <EyeIcon size={24} color="#666" />
@@ -145,9 +146,9 @@ const SignUpScreen = () => {
                     disabled={loading}
                 />
 
-                <View style={{ marginTop: 16, alignItems: 'center' }}>
+                <View style={styles.footer}>
                     <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-                        <Text style={{ color: 'blue', fontWeight: 'bold', marginTop: 8 }}>Already have an account?</Text>
+                        <Text style={styles.linkText}>Already have an account?</Text>
                     </TouchableOpacity>
                 </View>
 
