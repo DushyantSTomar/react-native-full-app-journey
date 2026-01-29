@@ -67,5 +67,19 @@ export const styles = StyleSheet.create({
     },
     loader: {
         marginVertical: 20,
+    },
+    wishlistButton: {
+        position: 'absolute',
+        top: 8,
+        right: 8,
+        zIndex: 10,
+        backgroundColor: 'rgba(255,255,255,0.9)',
+        borderRadius: 20,
+        padding: 6,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 1 },
+        shadowOpacity: 0.2,
+        shadowRadius: 1.5,
+        elevation: 2,
     }
 });

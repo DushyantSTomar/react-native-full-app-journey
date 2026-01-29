@@ -3,7 +3,7 @@ import { ActivityIndicator } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useAuth } from '../auth/AuthContext';
-import ProductListScreen from '../features/products/ProductListScreen';
+import TabNavigator from './TabNavigator';
 import LoginScreen from '../features/auth/LoginScreen';
 import SignUpScreen from '../features/auth/SignUpScreen';
 import SearchScreen from '../features/search/SearchScreen';
@@ -22,7 +22,7 @@ const RootNavigator = () => {
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         {isLoggedIn ? (
           <>
-            <Stack.Screen name="ProductList" component={ProductListScreen} />
+            <Stack.Screen name="MainTabs" component={TabNavigator} />
             <Stack.Screen name="Search" component={SearchScreen} />
           </>
         ) : (

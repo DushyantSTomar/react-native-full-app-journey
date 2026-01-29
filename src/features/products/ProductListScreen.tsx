@@ -1,10 +1,14 @@
-import { useEffect, useState, useCallback, useRef } from 'react';
-import { View, FlatList, Text, ActivityIndicator, Image } from 'react-native';
+import { useEffect, useState, useCallback, useRef, useMemo } from 'react';
+import { View, FlatList, Text, ActivityIndicator, Image, TouchableOpacity } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { Product, ProductService } from '../../api/services/product.service';
 import { useApi } from '../../hooks/useApi';
 import ErrorView from '../../components/ErrorView';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { HeartIcon } from '../../components/icons/HeartIcon';
 import { styles, COLUMN_COUNT } from './styles';
+import { toggleWishlist } from '../wishlist/wishlistSlice';
+import { RootState } from '../../store';
 
 const ProductListScreen = () => {
   const [page, setPage] = useState(1);
@@ -13,6 +17,7 @@ const ProductListScreen = () => {
   const isListEndRef = useRef(false);
 
   const { loading, error, request, retry } = useApi(ProductService.getProducts);
+  const wishlistItems = useSelector((state: RootState) => state.wishlist.items);
 
   const loadInitial = useCallback(async () => {
     try {
@@ -33,7 +38,7 @@ const ProductListScreen = () => {
 
   const loadMore = useCallback(async () => {
     if (loading || !hasMore) return;
- 
+
     try {
       const response = await request(page);
 
@@ -42,7 +47,7 @@ const ProductListScreen = () => {
       if (response.hasMore) {
         setPage(prev => prev + 1);
       }
-    } catch (e) {   
+    } catch (e) {
     }
   }, [loading, hasMore, page, request]);
 
@@ -96,6 +101,7 @@ const ProductListScreen = () => {
         columnWrapperStyle={styles.columnWrapper}
         contentContainerStyle={styles.listContent}
         ListFooterComponent={renderFooter}
+        extraData={wishlistItems}
       />
     </SafeAreaView>
   );
@@ -103,6 +109,11 @@ const ProductListScreen = () => {
 
 const ProductItem = ({ item }: { item: Product }) => {
   const [imageError, setImageError] = useState(false);
+  const [isProcessing, setIsProcessing] = useState(false);
+  const dispatch = useDispatch();
+  const wishlistItems = useSelector((state: RootState) => state.wishlist.items);
+  const isWishlisted = wishlistItems.some((w) => w.id === item.id);
+
   const DUMMY_IMAGE = 'https://placehold.co/300x300.png?text=No+Image';
 
   const getImageUrl = (url: string) => {
@@ -119,9 +130,31 @@ const ProductItem = ({ item }: { item: Product }) => {
     ? { uri: imageUrl }
     : { uri: DUMMY_IMAGE };
 
+  const handleToggleWishlist = useCallback(() => {
+    if (isProcessing) return;
+
+    setIsProcessing(true);
+    dispatch(toggleWishlist(item));
+
+    setTimeout(() => {
+      setIsProcessing(false);
+    }, 500);
+  }, [dispatch, item, isProcessing]);
+
   return (
     <View style={styles.cardContainer}>
       <View style={styles.card}>
+        <TouchableOpacity
+          onPress={handleToggleWishlist}
+          disabled={isProcessing}
+          activeOpacity={0.7}
+          style={[
+            styles.wishlistButton,
+            { opacity: isProcessing ? 0.7 : 1 }
+          ]}
+        >
+          <HeartIcon filled={isWishlisted} />
+        </TouchableOpacity>
         <Image
           source={imageSource}
           style={styles.image}
