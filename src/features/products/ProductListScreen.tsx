@@ -1,7 +1,8 @@
-import { useEffect, useState, useCallback, useRef, useMemo } from 'react';
+import { useEffect, useState, useCallback, useRef } from 'react';
 import { View, FlatList, Text, ActivityIndicator, Image, TouchableOpacity } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useNavigation } from '@react-navigation/native';
 import { Product, ProductService } from '../../api/services/product.service';
 import { useApi } from '../../hooks/useApi';
 import ErrorView from '../../components/ErrorView';
@@ -90,7 +91,7 @@ const ProductListScreen = () => {
   }
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={styles.container} edges={['bottom']}>
       <FlatList
         data={items}
         keyExtractor={(item, index) => `${item.id}-${index}`}
@@ -111,6 +112,7 @@ const ProductItem = ({ item }: { item: Product }) => {
   const [imageError, setImageError] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
   const dispatch = useDispatch();
+  const navigation = useNavigation();
   const wishlistItems = useSelector((state: RootState) => state.wishlist.items);
   const isWishlisted = wishlistItems.some((w) => w.id === item.id);
 
@@ -141,9 +143,13 @@ const ProductItem = ({ item }: { item: Product }) => {
     }, 500);
   }, [dispatch, item, isProcessing]);
 
+  const handlePress = () => {
+    navigation.navigate('ProductDetail' as never, { product: item } as never);
+  };
+
   return (
     <View style={styles.cardContainer}>
-      <View style={styles.card}>
+      <TouchableOpacity style={styles.card} onPress={handlePress} activeOpacity={0.9}>
         <TouchableOpacity
           onPress={handleToggleWishlist}
           disabled={isProcessing}
@@ -168,7 +174,7 @@ const ProductItem = ({ item }: { item: Product }) => {
           <Text style={styles.price}>${(Number(item.price) || 0).toFixed(2)}</Text>
           <Text style={styles.category}>{item?.category}</Text>
         </View>
-      </View>
+      </TouchableOpacity>
     </View>
   );
 };

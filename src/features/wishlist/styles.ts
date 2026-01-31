@@ -18,7 +18,7 @@ export const styles = StyleSheet.create({
         color: '#333',
     },
     button: {
-        backgroundColor: '#007bff',
+        backgroundColor: '#007AFF', // Standard iOS Blue
         paddingVertical: 12,
         paddingHorizontal: 24,
         borderRadius: 8,
@@ -33,13 +33,13 @@ export const styles = StyleSheet.create({
         top: 8,
         right: 8,
         zIndex: 10,
-        backgroundColor: 'rgba(255,255,255,0.7)',
-        borderRadius: 12,
-        padding: 4
+        backgroundColor: 'rgba(255,255,255,0.9)',
+        borderRadius: 16,
+        padding: 6
     },
     addToCartButton: {
         marginTop: 12,
-        backgroundColor: '#28a745',
+        backgroundColor: '#007AFF', // Standard iOS Blue
         paddingVertical: 10,
         borderRadius: 8,
         alignItems: 'center',

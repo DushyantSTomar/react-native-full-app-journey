@@ -26,7 +26,7 @@ const WishlistScreen = () => {
     }, [dispatch]);
 
     const handleNavigateHome = () => {
-        navigation.navigate('ProductList' as never);
+        navigation.navigate('Products' as never);
     };
 
     const renderItem = useCallback(({ item }: { item: Product }) => {
@@ -48,7 +48,7 @@ const WishlistScreen = () => {
     }
 
     return (
-        <SafeAreaView style={productStyles.container}>
+        <SafeAreaView style={productStyles.container} edges={['bottom']}>
             <FlatList
                 data={wishlistItems}
                 keyExtractor={(item) => item.id.toString()}

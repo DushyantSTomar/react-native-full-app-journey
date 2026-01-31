@@ -48,17 +48,17 @@ export const styles = StyleSheet.create({
         justifyContent: 'flex-start',
     },
     title: {
-        fontSize: 14,
-        fontWeight: '400',
+        fontSize: 15,
+        fontWeight: '500',
         color: '#333',
-        lineHeight: 18,
-        marginBottom: 4,
+        lineHeight: 20,
+        marginBottom: 6,
     },
     price: {
         fontSize: 18,
         fontWeight: '700',
-        color: '#000',
-        marginBottom: 2,
+        color: '#333',
+        marginBottom: 4,
     },
     category: {
         fontSize: 12,

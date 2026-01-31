@@ -17,18 +17,52 @@ const RootNavigator = () => {
     return <ActivityIndicator />;
   }
 
+  const screenOptions = {
+    headerShown: true,
+    headerStyle: {
+      backgroundColor: '#fff',
+    },
+    headerTitleStyle: {
+      fontSize: 18,
+      fontWeight: '600' as const,
+      color: '#000',
+    },
+    headerShadowVisible: false,
+    headerBackTitleVisible: false,
+    headerBackTitle: '',
+    headerTitleAlign: 'center' as const,
+    headerTintColor: '#000',
+    animation: 'slide_from_right' as const,
+  };
+
   return (
     <NavigationContainer>
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Navigator screenOptions={screenOptions}>
         {isLoggedIn ? (
           <>
-            <Stack.Screen name="MainTabs" component={TabNavigator} />
-            <Stack.Screen name="Search" component={SearchScreen} />
+            <Stack.Screen
+              name="MainTabs"
+              component={TabNavigator}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="Search"
+              component={SearchScreen}
+              options={{ headerTitle: 'Search' }}
+            />
           </>
         ) : (
           <>
-            <Stack.Screen name="Login" component={LoginScreen} />
-            <Stack.Screen name="SignUp" component={SignUpScreen} />
+            <Stack.Screen
+              name="Login"
+              component={LoginScreen}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="SignUp"
+              component={SignUpScreen}
+              options={{ headerShown: false }}
+            />
           </>
         )}
       </Stack.Navigator>
