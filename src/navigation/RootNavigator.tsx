@@ -7,6 +7,9 @@ import TabNavigator from './TabNavigator';
 import LoginScreen from '../features/auth/LoginScreen';
 import SignUpScreen from '../features/auth/SignUpScreen';
 import SearchScreen from '../features/search/SearchScreen';
+import CheckoutScreen from '../features/checkout/CheckoutScreen';
+import PaymentScreen from '../features/payment/PaymentScreen';
+import OrderSuccessScreen from '../features/checkout/OrderSuccessScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -49,6 +52,21 @@ const RootNavigator = () => {
               name="Search"
               component={SearchScreen}
               options={{ headerTitle: 'Search' }}
+            />
+            <Stack.Screen
+              name="Checkout"
+              component={CheckoutScreen}
+              options={{ headerTitle: 'Checkout' }}
+            />
+            <Stack.Screen
+              name="Payment"
+              component={PaymentScreen}
+              options={{ headerTitle: 'Payment' }}
+            />
+            <Stack.Screen
+              name="OrderSuccess"
+              component={OrderSuccessScreen}
+              options={{ headerShown: false }}
             />
           </>
         ) : (

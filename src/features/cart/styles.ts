@@ -92,24 +92,61 @@ export const styles = StyleSheet.create({
         backgroundColor: '#fff',
         borderTopWidth: 1,
         borderTopColor: '#e0e0e0',
+    },
+    summaryRow: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        alignItems: 'center',
+        marginBottom: 8,
     },
-    totalText: {
+    summaryLabel: {
+        fontSize: 14,
+        color: '#666',
+    },
+    summaryValue: {
+        fontSize: 14,
+        fontWeight: '500',
+        color: '#333',
+    },
+    divider: {
+        height: 1,
+        backgroundColor: '#e0e0e0',
+        marginVertical: 12,
+    },
+    totalRow: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginBottom: 16,
+    },
+    totalLabel: {
         fontSize: 18,
         fontWeight: '700',
         color: '#333',
     },
+    totalValue: {
+        fontSize: 18,
+        fontWeight: '700',
+        color: '#007AFF',
+    },
     checkoutButton: {
-        backgroundColor: '#007AFF',
-        paddingHorizontal: 24,
-        paddingVertical: 12,
-        borderRadius: 8,
+        backgroundColor: '#2563EB', // Primary Blue
+        paddingVertical: 16,
+        borderRadius: 12, // More rounded
+        alignItems: 'center',
+        shadowColor: '#2563EB',
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.2,
+        shadowRadius: 8,
+        elevation: 4,
+    },
+    disabledButton: {
+        backgroundColor: '#E5E7EB', // Gray
+        shadowOpacity: 0,
+        elevation: 0,
     },
     checkoutButtonText: {
-        color: '#fff',
+        color: '#FFFFFF',
         fontSize: 16,
-        fontWeight: '600',
+        fontWeight: '700',
+        letterSpacing: 0.5,
     },
 });

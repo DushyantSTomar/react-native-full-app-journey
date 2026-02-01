@@ -12,6 +12,7 @@ import { HeartIcon } from '../../components/icons/HeartIcon';
 
 const ProductDetailScreen = () => {
     const route = useRoute();
+    const navigation = useNavigation();
     const dispatch = useDispatch();
     const { product } = route.params as { product: Product };
     const [imageError, setImageError] = useState(false);
@@ -37,6 +38,11 @@ const ProductDetailScreen = () => {
         dispatch(addToCart(product));
         setTimeout(() => setIsAdding(false), 500);
     }, [isAdding, dispatch, product]);
+
+    const handleBuyNow = useCallback(() => {
+        dispatch(addToCart(product));
+        navigation.navigate('Checkout' as never);
+    }, [dispatch, product, navigation]);
 
     const handleToggleWishlist = useCallback(() => {
         dispatch(toggleWishlist(product));
@@ -75,9 +81,6 @@ const ProductDetailScreen = () => {
                     activeOpacity={0.7}
                 >
                     <HeartIcon filled={isWishlisted} />
-                    <Text style={styles.wishlistText}>
-                        {isWishlisted ? 'Saved' : 'Save'}
-                    </Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity
@@ -89,6 +92,14 @@ const ProductDetailScreen = () => {
                     <Text style={styles.addToCartText}>
                         {isAdding ? 'Adding...' : 'Add to Cart'}
                     </Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                    style={styles.buyNowButton}
+                    onPress={handleBuyNow}
+                    activeOpacity={0.7}
+                >
+                    <Text style={styles.buyNowText}>Buy Now</Text>
                 </TouchableOpacity>
             </View>
         </SafeAreaView>

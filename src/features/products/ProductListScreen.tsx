@@ -9,6 +9,7 @@ import ErrorView from '../../components/ErrorView';
 import { HeartIcon } from '../../components/icons/HeartIcon';
 import { styles, COLUMN_COUNT } from './styles';
 import { toggleWishlist } from '../wishlist/wishlistSlice';
+import { addToCart } from '../cart/cartSlice';
 import { RootState } from '../../store';
 
 const ProductListScreen = () => {
@@ -147,34 +148,63 @@ const ProductItem = ({ item }: { item: Product }) => {
     navigation.navigate('ProductDetail' as never, { product: item } as never);
   };
 
+  const handleAddToCart = () => {
+    dispatch(addToCart(item));
+  };
+
+  const handleBuyNow = () => {
+    dispatch(addToCart(item));
+    navigation.navigate('Checkout' as never);
+  };
+
   return (
     <View style={styles.cardContainer}>
-      <TouchableOpacity style={styles.card} onPress={handlePress} activeOpacity={0.9}>
-        <TouchableOpacity
-          onPress={handleToggleWishlist}
-          disabled={isProcessing}
-          activeOpacity={0.7}
-          style={[
-            styles.wishlistButton,
-            { opacity: isProcessing ? 0.7 : 1 }
-          ]}
-        >
-          <HeartIcon filled={isWishlisted} />
-        </TouchableOpacity>
-        <Image
-          source={imageSource}
-          style={styles.image}
-          resizeMode="contain"
-          onError={() => setImageError(true)}
-        />
-        <View style={styles.details}>
-          <Text style={styles.title} numberOfLines={2}>
-            {item?.title}
-          </Text>
-          <Text style={styles.price}>${(Number(item.price) || 0).toFixed(2)}</Text>
-          <Text style={styles.category}>{item?.category}</Text>
+      <View style={styles.card}>
+        <View style={styles.imageContainer}>
+          <TouchableOpacity
+            onPress={handleToggleWishlist}
+            disabled={isProcessing}
+            activeOpacity={0.7}
+            style={[
+              styles.wishlistButton,
+              { opacity: isProcessing ? 0.7 : 1 }
+            ]}
+            hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+          >
+            <HeartIcon filled={isWishlisted} />
+          </TouchableOpacity>
+
+          <TouchableOpacity onPress={handlePress} activeOpacity={0.9} style={{ width: '100%', height: '100%', alignItems: 'center', justifyContent: 'center' }}>
+            <Image
+              source={imageSource}
+              style={styles.image}
+              resizeMode="contain"
+              onError={() => setImageError(true)}
+            />
+          </TouchableOpacity>
         </View>
-      </TouchableOpacity>
+
+        <TouchableOpacity onPress={handlePress} activeOpacity={0.7} style={{ flex: 1 }}>
+          <View style={styles.details}>
+            <Text style={styles.category} numberOfLines={1}>{item?.category || 'Electronics'}</Text>
+            <Text style={styles.title} numberOfLines={2}>
+              {item?.title}
+            </Text>
+            <View style={styles.priceRow}>
+              <Text style={styles.price}>${(Number(item.price) || 0).toFixed(2)}</Text>
+            </View>
+          </View>
+        </TouchableOpacity>
+
+        <View style={styles.actions}>
+          <TouchableOpacity style={styles.addToCartBtn} onPress={handleAddToCart} activeOpacity={0.8}>
+            <Text style={styles.addToCartText}>Add</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.buyNowBtn} onPress={handleBuyNow} activeOpacity={0.8}>
+            <Text style={styles.buyNowText}>Buy</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
     </View>
   );
 };

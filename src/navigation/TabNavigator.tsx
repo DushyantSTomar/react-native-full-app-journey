@@ -3,11 +3,12 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useSelector } from 'react-redux';
 import { RootState } from '../store';
+import HomeScreen from '../features/home/HomeScreen';
 import ProductListScreen from '../features/products/ProductListScreen';
 import WishlistScreen from '../features/wishlist/WishlistScreen';
 import CartScreen from '../features/cart/CartScreen';
 import ProductDetailScreen from '../features/products/ProductDetailScreen';
-import { ProductsIcon } from '../components/icons/ProductsIcon';
+import { HomeIcon } from '../components/icons/HomeIcon';
 import { HeartIcon } from '../components/icons/HeartIcon';
 import { CartIcon } from '../components/icons/CartIcon';
 
@@ -31,9 +32,14 @@ const headerOptions = {
     animation: 'slide_from_right' as const,
 };
 
-const ProductsStack = () => {
+const HomeStack = () => {
     return (
         <Stack.Navigator screenOptions={headerOptions}>
+            <Stack.Screen
+                name="HomeMain"
+                component={HomeScreen}
+                options={{ headerShown: false }}
+            />
             <Stack.Screen
                 name="ProductList"
                 component={ProductListScreen}
@@ -84,12 +90,12 @@ const TabNavigator = () => {
             }}
         >
             <Tab.Screen
-                name="Products"
-                component={ProductsStack}
+                name="Home"
+                component={HomeStack}
                 options={{
                     headerShown: false,
-                    tabBarLabel: 'Products',
-                    tabBarIcon: ({ color }) => <ProductsIcon color={color} />,
+                    tabBarLabel: 'Home',
+                    tabBarIcon: ({ color }) => <HomeIcon color={color} />,
                 }}
             />
             <Tab.Screen
