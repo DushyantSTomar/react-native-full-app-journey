@@ -3,8 +3,6 @@ import { View, Text, TouchableOpacity, BackHandler } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation, CommonActions } from '@react-navigation/native';
 import { styles } from './successStyles';
-
-// Simple Check Icon Component
 const CheckIcon = () => (
     <View style={{ width: 40, height: 40, borderWidth: 3, borderColor: '#4CAF50', borderRadius: 20, justifyContent: 'center', alignItems: 'center' }}>
         <Text style={{ color: '#4CAF50', fontSize: 24, fontWeight: 'bold' }}>✓</Text>
@@ -13,14 +11,11 @@ const CheckIcon = () => (
 
 const OrderSuccessScreen = () => {
     const navigation = useNavigation();
-
-    // Generate a random order ID
     const orderId = React.useMemo(() => {
         return Math.floor(100000 + Math.random() * 900000).toString();
     }, []);
 
     const handleContinueShopping = () => {
-        // Reset navigation and go to MainTabs
         navigation.dispatch(
             CommonActions.reset({
                 index: 0,
@@ -30,8 +25,6 @@ const OrderSuccessScreen = () => {
             })
         );
     };
-
-    // Prevent going back to payment/checkout
     useEffect(() => {
         const backAction = () => {
             handleContinueShopping();
@@ -49,7 +42,6 @@ const OrderSuccessScreen = () => {
     return (
         <SafeAreaView style={styles.container} edges={['bottom', 'top']}>
             <View style={styles.iconContainer}>
-                {/* Using text for checkmark for simplicity, can be replaced with SVG */}
                 <Text style={{ fontSize: 50, color: '#4CAF50' }}>✓</Text>
             </View>
 

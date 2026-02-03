@@ -1,0 +1,10 @@
+
+Query: ['laptop']
+Mapped Category: electronics
+Price: None
+Found 8 products
+
+Query: ['laptop']
+Mapped Category: electronics
+Price: None
+Found 8 products

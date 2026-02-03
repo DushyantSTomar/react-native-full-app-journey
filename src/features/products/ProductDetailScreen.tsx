@@ -18,7 +18,6 @@ const ProductDetailScreen = () => {
     const [imageError, setImageError] = useState(false);
     const [isAdding, setIsAdding] = useState(false);
 
-    // Wishlist state
     const wishlistItems = useSelector((state: RootState) => state.wishlist.items);
     const isWishlisted = wishlistItems.some((item) => item.id === product.id);
 

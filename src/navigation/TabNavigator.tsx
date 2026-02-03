@@ -11,6 +11,8 @@ import ProductDetailScreen from '../features/products/ProductDetailScreen';
 import { HomeIcon } from '../components/icons/HomeIcon';
 import { HeartIcon } from '../components/icons/HeartIcon';
 import { CartIcon } from '../components/icons/CartIcon';
+import AIAssistScreen from '../features/ai-assist/AIAssistScreen';
+import { SparklesIcon } from '../components/icons/SparklesIcon';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -106,6 +108,15 @@ const TabNavigator = () => {
                     headerTitle: 'My Wishlist',
                     tabBarIcon: ({ color }) => <HeartIcon stroke={color} color={color} />,
                     tabBarBadge: wishlistCount > 0 ? wishlistCount : undefined,
+                }}
+            />
+            <Tab.Screen
+                name="AIAssist"
+                component={AIAssistScreen}
+                options={{
+                    tabBarLabel: 'AI Assist',
+                    headerShown: false,
+                    tabBarIcon: ({ color }) => <SparklesIcon color={color} />,
                 }}
             />
             <Tab.Screen

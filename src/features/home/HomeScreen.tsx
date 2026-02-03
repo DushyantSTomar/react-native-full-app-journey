@@ -6,14 +6,12 @@ import { styles } from './styles';
 
 const HomeScreen = () => {
     const navigation = useNavigation();
-
-    // Dynamic greeting logic
     const getGreeting = () => {
         const hours = new Date().getHours();
         if (hours >= 5 && hours < 12) return 'Good Morning,';
         if (hours >= 12 && hours < 17) return 'Good Afternoon,';
         if (hours >= 17 && hours < 21) return 'Good Evening,';
-        return 'Good Night,'; // 21:00 - 04:59
+        return 'Good Night,'; 
     };
 
     const greeting = getGreeting();

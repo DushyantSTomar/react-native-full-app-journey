@@ -21,8 +21,6 @@ const PaymentScreen = () => {
     const handlePay = () => {
         if (isProcessing) return;
         setIsProcessing(true);
-
-        // Simulate payment processing
         setTimeout(() => {
             dispatch(clearCart());
             setIsProcessing(false);
